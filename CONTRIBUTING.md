@@ -1,29 +1,29 @@
 # Contributing to FinTrack
 
-## Workflow Git
+## Git Workflow
 
-Ce projet suit un **trunk-based development** avec branches courtes.
+This project follows trunk-based development with short-lived branches.
 
 ```
-main          ← production (protégée)
-  └── develop ← intégration (protégée)
-        └── feature/xxx  ← développement (durée de vie < 2 jours)
+main          <- production (protected)
+  └── develop <- integration (protected)
+        └── feature/xxx  <- development (lifetime < 2 days)
 ```
 
-### Branches
+### Branch naming
 
-| Préfixe | Usage | Exemple |
-|---|---|---|
-| `feature/` | Nouvelle fonctionnalité | `feature/transaction-category-filter` |
-| `fix/` | Correction de bug | `fix/budget-threshold-calculation` |
-| `refactor/` | Amélioration interne | `refactor/transaction-domain-model` |
-| `test/` | Ajout de tests | `test/budget-integration-tests` |
-| `docs/` | Documentation | `docs/adr-kafka-decision` |
-| `chore/` | Build, dépendances | `chore/upgrade-spring-boot-4.1` |
+| Prefix      | Usage                | Example                               |
+| ----------- | -------------------- | ------------------------------------- |
+| `feature/`  | New functionality    | `feature/transaction-category-filter` |
+| `fix/`      | Bug fix              | `fix/budget-threshold-calculation`    |
+| `refactor/` | Internal improvement | `refactor/transaction-domain-model`   |
+| `test/`     | Adding tests         | `test/budget-integration-tests`       |
+| `docs/`     | Documentation        | `docs/adr-kafka-decision`             |
+| `chore/`    | Build, dependencies  | `chore/upgrade-spring-boot-4.1`       |
 
-### Commits — Conventional Commits
+### Commits - Conventional Commits
 
-Format : `type(scope): description courte`
+Format: `type(scope): short description`
 
 ```
 feat(transaction): add multi-currency support
@@ -34,60 +34,60 @@ docs(arch): add ADR-003 database-per-service
 chore(deps): upgrade Spring Boot to 4.1.0
 ```
 
-### Cycle d'une tâche quotidienne
+### Daily task cycle
 
 ```bash
-# 1. Créer une issue GitHub sur le board
-# 2. Créer la branche depuis develop
+# 1. Create a GitHub issue on the board
+# 2. Create the branch from develop
 git checkout develop && git pull
-git checkout -b feature/ma-feature
+git checkout -b feature/my-feature
 
-# 3. Développer (TDD : test d'abord)
-# 4. Committer régulièrement
+# 3. Develop (TDD: test first)
+# 4. Commit regularly
 git add .
 git commit -m "feat(service): description"
 
-# 5. Pousser et ouvrir une PR vers develop
-git push -u origin feature/ma-feature
-# → Ouvrir la PR sur GitHub, remplir le template
+# 5. Push and open a PR toward develop
+git push -u origin feature/my-feature
+# Open the PR on GitHub and fill in the template
 
-# 6. Vérifier que la CI passe
-# 7. Merger (squash) avec un message Conventional Commit
-# 8. Supprimer la branche
+# 6. Verify CI passes
+# 7. Merge (squash) with a Conventional Commit message
+# 8. Delete the branch
 ```
 
-## Standards de code
+## Code Standards
 
-### Clean Architecture (obligatoire dans chaque service)
+### Clean Architecture (mandatory in every service)
 
 ```
 src/main/java/com/fintrack/{service}/
-├── domain/          ← Entités, Value Objects, Events, Ports (interfaces)
-│                      Aucune dépendance Spring ici
-├── application/     ← Use Cases, Services applicatifs
-│                      Dépend uniquement de domain/
-├── infrastructure/  ← JPA, Kafka, HTTP clients, implémentations des ports
-│                      Dépend de domain/ et application/
-└── api/             ← Controllers REST, DTOs, mappers
-                       Point d'entrée HTTP
+├── domain/          <- Entities, Value Objects, Events, Ports (interfaces)
+│                       No Spring dependency allowed here
+├── application/     <- Use Cases
+│                       Depends only on domain/
+├── infrastructure/  <- JPA, Kafka, HTTP clients, port implementations
+│                       Depends on domain/ and application/
+└── api/             <- REST controllers, DTOs, mappers
+                        HTTP entry point
 ```
 
-**Règle absolue :** `domain/` n'importe rien de Spring, JPA, ou Kafka.
+Absolute rule: `domain/` must never import Spring, JPA, or Kafka.
 
 ### Tests
 
-- Écrire le test avant le code (TDD)
-- Tests unitaires dans `domain/` et `application/` : pas de Spring context
-- Tests d'intégration avec Testcontainers pour `infrastructure/`
-- Coverage minimum : **80%**
+- Write the test before the code (TDD)
+- Unit tests in `domain/` and `application/`: no Spring context
+- Integration tests with Testcontainers for `infrastructure/`
+- Minimum coverage: 80%
 
 ```bash
-# Tests unitaires uniquement
+# Unit tests only
 mvn test
 
-# Tests + intégration + coverage
+# Tests + integration + coverage
 mvn verify
 
-# Tests d'intégration uniquement
+# Integration tests only
 mvn verify -P integration-tests
 ```
