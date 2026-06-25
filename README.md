@@ -5,8 +5,8 @@
 > software engineering practices: Clean Architecture, DDD, event-driven design,
 > CI/CD, and cloud-native deployment on Kubernetes.
 
-[![CI](https://github.com/your-username/fintrack/actions/workflows/ci.yml/badge.svg)](https://github.com/your-username/fintrack/actions)
-[![Coverage](https://img.shields.io/badge/coverage-80%25-brightgreen)](https://github.com/your-username/fintrack)
+[![CI](https://github.com/cameldjoulako/fintrack/actions/workflows/ci.yml/badge.svg)](https://github.com/cameldjoulako/fintrack/actions)
+[![Coverage](https://img.shields.io/badge/coverage-80%25-brightgreen)](https://github.com/cameldjoulako/fintrack)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Java](https://img.shields.io/badge/Java-25-orange)](https://openjdk.org/)
 [![Spring Boot](https://img.shields.io/badge/Spring%20Boot-4.1-brightgreen)](https://spring.io/projects/spring-boot)
@@ -379,7 +379,7 @@ Docker Compose is used exclusively for local development. It is not a deployment
 solution for microservices in staging or production.
 
 ```bash
-git clone https://github.com/your-username/fintrack.git
+git clone https://github.com/cameldjoulako/fintrack.git
 cd fintrack
 
 # Start all local infrastructure
@@ -646,7 +646,7 @@ All significant architectural decisions are documented in `docs/architecture/dec
 
 ## Contributing
 
-This project is built and maintained by [Camel](https://linkedin.com/in/your-profile),
+This project is built and maintained by [Camel Djoulako](https://linkedin.com/in/cameldjoulako),
 Software Architect and founder of [Aroolia](https://aroolia.com).
 
 All commits follow Conventional Commits. All changes go through a Pull Request.
